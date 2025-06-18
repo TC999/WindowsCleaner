@@ -336,6 +336,17 @@ def load_settings():
 
 
 if __name__ == "__main__":
+    # 检查是否带有 --debug 参数，如果没有则重新以带终端方式运行
+    if '--debug' not in sys.argv and hasattr(sys, 'frozen'):
+        import subprocess
+        import time
+        args = [sys.executable] + sys.argv
+        args.append('--debug')
+        # 拼接为命令行字符串
+        cmd = ['cmd.exe', '/k'] + [' '.join(['"%s"' % arg for arg in args])]
+        subprocess.Popen(cmd)
+        time.sleep(0.5)
+        sys.exit(0)
     if is_admin():
         # Code of your program here
         QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
