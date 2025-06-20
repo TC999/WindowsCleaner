@@ -48,7 +48,7 @@ jobs:
         run: |
           uv venv
           .venv\Scripts\activate
-          pip install -r requirements.txt -U nuitka==2.5.1 zstandard ordered-set
+          uv pip install -r requirements.txt -U nuitka==2.5.1 zstandard ordered-set
           $NuitkaCmd = "python -m nuitka --standalone --assume-yes-for-downloads --enable-plugin=pyqt5 --output-dir=dist --follow-imports --windows-uac-admin --remove-output --jobs=8 --windows-icon-from-ico=icon.ico --company-name='DaYe' --product-name='WindowsCleaner' --file-version='5.0.0' --product-version='5.0' --file-description='WindowsCleaner' --copyright='DaYe' --trademarks='DaYe' wincleaner.py"
           if ("${{ inputs.debug }}".ToLower() -eq "true") { $NuitkaCmd += " --windows-console" }
           if ("${{ inputs.msvc }}".ToLower() -eq "false") { $NuitkaCmd += " --mingw64" }
